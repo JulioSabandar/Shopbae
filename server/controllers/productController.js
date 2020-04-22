@@ -2,6 +2,7 @@ const { Product, Order, Customer } = require('../models');
 const { Op } = require("sequelize");
 class ProductController {
     static showProducts (req, res, next){
+        console.log('ayyyddd')
         Product.findAll({order: [['id', 'ASC']]})
         .then((products)=>{
             res.status(200).json({products})

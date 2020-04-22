@@ -6,12 +6,16 @@ Vue.use(Vuex);
 const url = 'http://localhost:5000'
 export default new Vuex.Store({
   state: {
-    isLoggedIn: false
+    isLoggedIn: false,
+    products: []
   },
   mutations: {
     SET_ISLOGGEDIN(state, payload){
       state.isLoggedIn = payload;
       console.log(state.isLoggedIn);
+    },
+    SET_PRODUCTS(state, payload){
+      state.products = payload;
     }
   },
   actions: {
@@ -41,7 +45,20 @@ export default new Vuex.Store({
         }
         console.log(err);
       })
-    }
+    },
+    getProducts({ commit }){
+      console.log('ayyyydd')
+      axios({
+        url: url + '/product',
+        method: 'get'
+      })
+      .then(response=>{
+        commit('SET_PRODUCTS', response.data.products);
+      })
+      .catch(err=>{
+        swal("Error!", err.message, "success");
+      })
+    },
   },
   modules: {
   }

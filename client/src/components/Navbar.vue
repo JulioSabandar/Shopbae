@@ -15,20 +15,26 @@
         </template>
 
         <template slot="end">
-            <b-navbar-item tag="div">
-                <div class="buttons">
-
-                    <SignupButton>
-                    </SignupButton>
-                </div>
-            </b-navbar-item>
-            <b-navbar-item tag="div">
-                <div class="buttons">
-
-                    <LoginButton>
-                    </LoginButton>
-                </div>
-            </b-navbar-item>
+            <div v-if="isLoggedIn">
+                <button class="button is-success" v-on:click.stop="signout">
+                    Log out
+                </button>
+            </div>
+            <div v-if="!isLoggedIn" class="signlog">
+                <b-navbar-item tag="div">
+                    <div class="buttons">
+                        <SignupButton>
+                        </SignupButton>
+                    </div>
+                </b-navbar-item>
+                <b-navbar-item tag="div">
+                    <div class="buttons">
+                        <LoginButton>
+                        </LoginButton>
+                    </div>
+                </b-navbar-item>
+            </div>
+            
         </template>
     </b-navbar>
 </template>
@@ -42,12 +48,27 @@
         components: {
             LoginButton,
             SignupButton
-        }     
+        },
+        computed: {
+            isLoggedIn(){
+            return this.$store.state.isLoggedIn;
+            },
+        },
+        methods: {
+            signout: function(){
+                localStorage.clear();
+                this.$store.commit('SET_ISLOGGEDIN', false);
+                this.$router.push('/');
+            }
+        }
     }
 </script>
 
 <style scoped>
     .logo{
        font-size: 200%;
+    }
+    .signlog{
+        display: flex
     }
 </style>

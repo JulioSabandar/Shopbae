@@ -1,6 +1,6 @@
 <template>
     <section>
-        <button class="button is-primary is-medium"
+        <button class="button is-success"
             @click="isComponentModalActive = true">
             Log in
         </button>

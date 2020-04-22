@@ -1,9 +1,9 @@
 <template>
     <section>
-        <button class="button is-primary is-medium"
-            @click="isComponentModalActive = true">
+        <b-button class="button is-success"
+            @click="isComponentModalActive = true" outlined>
             Sign up
-        </button>
+        </b-button>
         <b-modal :active.sync="isComponentModalActive"
                  has-modal-card
                  trap-focus
