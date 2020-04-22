@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="login">
+    <form @submit.prevent="topupp">
         <div class="modal-card" style="width: auto">
             <header class="modal-card-head">
                 <p class="modal-card-title">Top up</p>
@@ -23,18 +23,18 @@
 </template>
 <script>
     export default {
-        name: 'LoginForm',
+        name: 'topupForm',
         data(){
             return{
                 topupvalue: null,
             }
         },
         methods: {
-            topup(){
+            topupp(){
                 this.$store.dispatch("topup", this.topupvalue)
                 .then(result=>{
                     this.$parent.close();
-                    this.$emit('topup');
+                    this.$emit('topupz');
                 })
                 .catch(err=>{
                     console.log(err);

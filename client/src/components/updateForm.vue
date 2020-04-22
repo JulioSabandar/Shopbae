@@ -45,7 +45,6 @@
                 .then(result=>{
                     this.$parent.close();
                     this.$emit('updateCart');
-                    // this.$router.push('/cart');
                 })
                 .catch(err=>{
                     console.log(err);

@@ -9,7 +9,10 @@
                  trap-focus
                  aria-role="dialog"
                  aria-modal>
-            <TopupForm @topup="topup"></TopupForm>
+            <TopupForm 
+            @topupz="$emit('topupz')"
+            >
+            </TopupForm>
         </b-modal>
     </section>
 </template>
@@ -17,17 +20,13 @@
 <script>
     import TopupForm from './topupForm.vue'
     export default {
+        name: 'topupButton',
         components: {
             TopupForm
         },
         data() {
             return {
                 isComponentModalActive: false,
-            }
-        },
-        method: {
-            topup: function(){
-                this.$emit('topup');
             }
         }
     }

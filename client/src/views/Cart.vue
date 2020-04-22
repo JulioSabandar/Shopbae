@@ -7,7 +7,8 @@
                     Your Credits: {{user.credit}} USD
                 </h1>
                 <br>
-                <topupButton @topup="topup">
+                <topupButton 
+                @topupz="topupz()">
                 </topupButton>
 
             <hr>
@@ -72,7 +73,7 @@
         name: 'Cart',
         data() {
             return {
-                
+                credits: 0
             }
         },
         components: {
@@ -93,6 +94,7 @@
         created(){
             this.loadCart();
             this.updateUser();
+            this.credits = this.user.credit
         },
         methods: {
             loadCart: function(){
@@ -101,8 +103,10 @@
             updateUser: function(){
                 this.$store.dispatch('getUserData');
             },
-            topup: function(payload){
+            topupz: function(){
+                console.log('aaa')
                 this.updateUser();
+                this.$router.push('/cart');
             },
             removeItem: function(product){
                 swal({

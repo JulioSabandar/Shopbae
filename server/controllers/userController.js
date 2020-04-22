@@ -49,7 +49,6 @@ class UserController {
         .catch(next);
     }
     static topUp(req, res, next){
-
         Customer.findByPk(req.UserId)
         .then(customer => {
             return Customer.update({

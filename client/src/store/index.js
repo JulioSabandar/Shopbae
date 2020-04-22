@@ -44,7 +44,6 @@ export default new Vuex.Store({
       .catch(err=>{
         console.log(err);
       })
-
     },
     login({ commit }, payload){
       return axios({
@@ -122,6 +121,25 @@ export default new Vuex.Store({
       .then(response=>{
         console.log(response);
         swal("Success!", `${payload.name} added to cart`, "success");
+      })
+      .catch(err=>{
+        swal("Error!", err.message, "error");
+      })
+    },
+    topup({ commit }, payload) {
+      return axios({
+        url: url + '/topUp',
+        method: 'post',
+        data: {
+          topUp: payload
+        },
+        headers:{
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+      .then(response=>{
+        console.log(response);
+        swal("Success!", `Your top up has been proccessed`, "success");
       })
       .catch(err=>{
         swal("Error!", err.message, "error");

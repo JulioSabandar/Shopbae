@@ -15,10 +15,14 @@
         </template>
 
         <template slot="end">
-            <div v-if="isLoggedIn">
-                <button class="button is-success" v-on:click.stop="signout">
+            <div v-if="isLoggedIn" class="signlog">
+                <b-navbar-item tag="div">
+
+                <button class="button is-danger" v-on:click.stop="signout">
                     Log out
                 </button>
+                </b-navbar-item>
+
             </div>
             <div v-if="!isLoggedIn" class="signlog">
                 <b-navbar-item tag="div">
