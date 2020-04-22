@@ -2,60 +2,42 @@
     <form @submit.prevent="update">
         <div class="modal-card" style="width: auto">
             <header class="modal-card-head">
-                <p class="modal-card-title">Update Product</p>
+                <p class="modal-card-title">Update {{product.Product.name}}</p>
             </header>
             <section class="modal-card-body">
-                <b-field label="Email">
-                    <b-input
-                        type="email"
-                        :value="email"
-                        v-model="email"
-                        placeholder="Your email"
-                        required>
-                    </b-input>
-                </b-field>
-
-                <b-field label="Username">
+                <b-field label="Quantity">
                     <b-input
                         type="username"
-                        :value="username"
-                        v-model="username"
-                        password-reveal
-                        placeholder="Your username"
+                        :value="product.amount"
+                        v-model="amount"
                         required>
                     </b-input>
                 </b-field>
-
-                <b-field label="Password">
-                    <b-input
-                        type="password"
-                        :value="password"
-                        v-model="password"
-                        password-reveal
-                        placeholder="Your password"
-                        required>
-                    </b-input>
-                </b-field>
-
             </section>
             <footer class="modal-card-foot">
                 <button class="button" type="button" @click="$parent.close()">Close</button>
-                <button type="submit" class="button is-success">Sign up</button>
+                <button type="submit" class="button is-success">Update</button>
             </footer>
         </div>
     </form>
 </template>
 <script>
     export default {
-        name: 'SignupForm',   
-                data(){
+        name: 'updateForm',   
+        data(){
             return{
-                email: null,
-                username: null,
-                password: null
+                amount: null,
             }
         },
+        props: ['product'],
+        created(){
+            this.amount = this.product.amount;
+            console.log(this.product)
+        },
         methods: {
+            update(){
+
+            },
             register(){
                 let registerInput = {
                     email: this.email,

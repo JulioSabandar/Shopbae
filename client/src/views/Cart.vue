@@ -22,7 +22,7 @@
                     <td align="center">{{product.amount * product.Product.price}}</td>
                     <td align="center">
                         <div class="buttonContainer">
-                            <b-button v-on:click="" class="b-button" type="is-success">Update</b-button>
+                            <updateButton :product="product"> </updateButton>
                             <b-button v-on:click="removeItem(product)" class="b-button" type="is-danger">Remove</b-button>
                         </div>
                     </td>
@@ -51,12 +51,16 @@
 </template>
 
 <script>
+    import updateButton from '../components/updateButton.vue';
     export default {
         name: 'Cart',
         data() {
             return {
-
+                
             }
+        },
+        components: {
+            updateButton
         },
         computed: {
             cart(){

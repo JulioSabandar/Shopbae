@@ -10,7 +10,8 @@ export default new Vuex.Store({
     isLoggedIn: false,
     products: [],
     cart: [],
-    totalPrice: null
+    totalPrice: null,
+    productToEdit: null
   },
   mutations: {
     SET_USER(state, payload){
@@ -27,6 +28,9 @@ export default new Vuex.Store({
     },
     SET_TOTALPRICE(state, payload){
       state.totalPrice = payload;
+    },
+    SET_PRODUCTTOEDIT(state, payload){
+      state.productToEdit = payload;
     }
   },
   actions: {
