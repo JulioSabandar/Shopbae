@@ -114,7 +114,7 @@ class ProductController {
             const updates = [];
             for(let i=0; i<orderz.length; i++){
                 if(orderz[i].Product.stock - orderz[i].amount < 0){
-                    throw new Error(`${orderz[i].Product.name}'s stock is not enough`);
+                    throw new Error(`Stock is not enough`);
                 } else{
                     updates.push(Product.update({stock: (orderz[i].Product.stock - orderz[i].amount)}, 
                     {where: {id: orderz[i].ProductId}}))

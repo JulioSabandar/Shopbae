@@ -12,7 +12,16 @@ module.exports = (sequelize, DataTypes) => {
     },
     CustomerId: DataTypes.INTEGER,
     ProductId: DataTypes.INTEGER,
-    amount: DataTypes.INTEGER
+    amount: {
+      type: DataTypes.INTEGER,
+      validate: {
+        isNotNegative(value){
+          if(value < 0){
+            throw new Error('Quantity cannot be less than 0');
+          }
+        }
+      }
+    }
   }, {sequelize})
   Order.associate = function(models) {
     // associations can be defined here

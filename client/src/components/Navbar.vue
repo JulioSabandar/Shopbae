@@ -9,7 +9,7 @@
             <b-navbar-item tag="router-link" :to="{ path: '/' }">
                 Home
             </b-navbar-item>
-            <b-navbar-item tag="router-link" :to="{ path: '/cart' }">
+            <b-navbar-item tag="router-link" v-if="isLoggedIn" :to="{ path: '/cart' }">
                 Cart
             </b-navbar-item>
         </template>

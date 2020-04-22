@@ -133,14 +133,17 @@
                         return this.$store.dispatch('checkout')
                     }
                 })
-                .then(response=>{
-                    console.log(response);
-                    return this.$store.dispatch('getUserData')
+                .then(async response=>{
+                    await this.$store.dispatch('getUserData');
+                    return response;
                 })
                 .then(response=>{
-                    console.log(response);
-                    this.loadCart();
-                    this.$router.push('/');
+                    if(response.status == 200){
+                        this.$router.push('/');
+                    }
+                    else{
+                        this.loadCart();
+                    }
                 })
                 .catch(console.log);
             }

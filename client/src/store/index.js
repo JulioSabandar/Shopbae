@@ -88,6 +88,9 @@ export default new Vuex.Store({
         if(err.response.status == 400){
           swal("Error!", 'Incorrect Email/Password', "error");
         }
+        else if(err.response.status == 401){
+          swal("Error!", 'Email is taken', "error");
+        }
         else{
           swal("Error!", err.message, "error");
         }
@@ -194,7 +197,12 @@ export default new Vuex.Store({
         console.log(response)
       })
       .catch(err=>{
-        swal("Error!", 'Cannot update item', "error");
+        if(err.response.status == 408){
+          swal("Error!", 'Quantity cannot be less than 0', "error");
+        }
+        else{
+          swal("Error!", 'Cannot update item', "error");
+        }
       })
     },
     checkout({commit}){
@@ -205,13 +213,24 @@ export default new Vuex.Store({
           access_token: localStorage.getItem('access_token')
         }
       })
-      .then(() => {
+      .then((response) => {
         swal(`Your purchase has been processed!`, {
           icon: "success",
         });
+        return response;
       })
       .catch(err=>{
-        swal("Error!", 'Cannot remove item(s)', "error");
+        console.log(err)
+        if(err.response.status == 405){
+          swal("Error!", 'You do not have enough credits for this purchase', "error");
+        }
+        else if(err.response.status == 406){
+          swal("Error!", 'Our stock is not enough for your purchase', "error");
+        }
+        else{
+          swal("Error!", 'Internal Server Error', "error");
+        }
+        
       })
     }
   },
