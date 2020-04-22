@@ -4,7 +4,6 @@ const authentication = require('../middleware/authentication');
 const authorization = require('../middleware/authorization');
 const productRouter = Router();
 productRouter.get('/', Controller.showProducts);
-productRouter.use(authentication);
 productRouter.get('/cart', authentication, Controller.showCart);
 productRouter.post('/cart', authentication, Controller.addProductToCart);
 productRouter.delete('/cart', authentication, Controller.emptyCart);

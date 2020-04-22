@@ -7,7 +7,8 @@ const url = 'http://localhost:5000'
 export default new Vuex.Store({
   state: {
     isLoggedIn: false,
-    products: []
+    products: [],
+    cart: null
   },
   mutations: {
     SET_ISLOGGEDIN(state, payload){
@@ -66,7 +67,6 @@ export default new Vuex.Store({
       })
     },
     getProducts({ commit }){
-      console.log('ayyyydd')
       axios({
         url: url + '/product',
         method: 'get'
@@ -75,9 +75,28 @@ export default new Vuex.Store({
         commit('SET_PRODUCTS', response.data.products);
       })
       .catch(err=>{
-        swal("Error!", err.message, "success");
+        swal("Error!", err.message, "error");
       })
     },
+    addToCart({ commit }, payload){
+      axios({
+        url: url + '/product/cart',
+        method: 'post',
+        data: {
+          ProductId: payload.id
+        },
+        headers:{
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+      .then(response=>{
+        console.log(response);
+        swal("Success!", `${payload.name} added to cart`, "success");
+      })
+      .catch(err=>{
+        swal("Error!", err.message, "error");
+      })
+    }
   },
   modules: {
   }

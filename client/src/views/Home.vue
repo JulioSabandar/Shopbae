@@ -12,8 +12,8 @@
             <h2>{{product.name}} </h2>
             <h4>{{product.price}} USD </h4>
           </div>
-          <b-button v-if="isLoggedIn" type="is-success" expanded>Add To Cart</b-button>
-          <b-button v-if="!isLoggedIn" type="is-success" expanded disabled>Add To Cart</b-button>
+          <b-button v-if="isLoggedIn" v-on:click="addToCart(product)" type="is-success" expanded>Add To Cart</b-button>
+          <b-button v-if="!isLoggedIn" v-on:click="" type="is-success" expanded disabled>Add To Cart</b-button>
         </div>
       </div>
     </div>
@@ -26,9 +26,6 @@ import HelloWorld from '@/components/HelloWorld.vue';
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld,
-  },
   created(){
     this.loadProducts();
   },
@@ -44,6 +41,9 @@ export default {
     loadProducts: function(){
       this.$store.dispatch('getProducts');
     },
+    addToCart: function(product) {
+      this.$store.dispatch('addToCart', product);
+    }
   }
 };
 </script>
