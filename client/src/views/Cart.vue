@@ -22,7 +22,10 @@
                     <td align="center">{{product.amount * product.Product.price}}</td>
                     <td align="center">
                         <div class="buttonContainer">
-                            <updateButton :product="product"> </updateButton>
+                            <updateButton 
+                            :product="product"
+                            @updateCart="updateCart"> 
+                            </updateButton>
                             <b-button v-on:click="removeItem(product)" class="b-button" type="is-danger">Remove</b-button>
                         </div>
                     </td>
@@ -114,6 +117,9 @@
                     this.$router.push('/cart');
                 })
                 .catch(console.log);
+            },
+            updateCart: function(){
+                this.loadCart();
             },
             checkout: function(){
                 swal({

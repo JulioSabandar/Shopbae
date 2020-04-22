@@ -10,7 +10,10 @@
                  trap-focus
                  aria-role="dialog"
                  aria-modal>
-            <updateForm :product="product"></updateForm>
+            <updateForm 
+            :product="product"
+            @updateCart="updateCart">
+            </updateForm>
         </b-modal>
     </section>
 </template>
@@ -25,6 +28,11 @@
         data() {
             return {
                 isComponentModalActive: false
+            }
+        },
+        methods: {
+            updateCart: function(){
+                this.$emit('updateCart');
             }
         }
     }

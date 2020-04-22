@@ -36,19 +36,16 @@
         },
         methods: {
             update(){
-
-            },
-            register(){
-                let registerInput = {
-                    email: this.email,
-                    username: this.username,
-                    password: this.password
+                let payload = {
+                    id: this.product.id,
+                    amount: this.amount
                 }
-                console.log(registerInput)
-                this.$store.dispatch("register", registerInput)
+                console.log(payload)
+                this.$store.dispatch("updateProduct", payload)
                 .then(result=>{
-                    this.$router.push('/');
                     this.$parent.close();
+                    this.$emit('updateCart');
+                    // this.$router.push('/cart');
                 })
                 .catch(err=>{
                     console.log(err);

@@ -10,8 +10,7 @@ export default new Vuex.Store({
     isLoggedIn: false,
     products: [],
     cart: [],
-    totalPrice: null,
-    productToEdit: null
+    totalPrice: null
   },
   mutations: {
     SET_USER(state, payload){
@@ -28,9 +27,6 @@ export default new Vuex.Store({
     },
     SET_TOTALPRICE(state, payload){
       state.totalPrice = payload;
-    },
-    SET_PRODUCTTOEDIT(state, payload){
-      state.productToEdit = payload;
     }
   },
   actions: {
@@ -98,7 +94,7 @@ export default new Vuex.Store({
       })
     },
     getProducts({ commit }){
-      axios({
+      return axios({
         url: url + '/product',
         method: 'get'
       })
@@ -110,7 +106,7 @@ export default new Vuex.Store({
       })
     },
     addToCart({ commit }, payload){
-      axios({
+      return axios({
         url: url + '/product/cart',
         method: 'post',
         data: {
@@ -129,7 +125,7 @@ export default new Vuex.Store({
       })
     },
     getCart({ commit }){
-      axios({
+      return axios({
         url: url + '/product/cart',
         method: 'get',
         headers:{
@@ -150,7 +146,7 @@ export default new Vuex.Store({
       })
     },
     removeItem({commit}, payload){
-      axios({
+      return axios({
         url: url + '/product/cart/' + payload.id,
         method: 'delete',
         headers:{
@@ -167,7 +163,7 @@ export default new Vuex.Store({
       })
     },
     removeAll({commit}){
-      axios({
+      return axios({
         url: url + '/product/cart',
         method: 'delete',
         headers:{
@@ -183,8 +179,26 @@ export default new Vuex.Store({
         swal("Error!", 'Cannot remove item(s)', "error");
       })
     },
+    updateProduct({commit}, payload){
+      return axios({
+        url: url + '/product/cart/' + payload.id,
+        method: 'put',
+        data: {
+          amount: payload.amount
+        },
+        headers:{
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+      .then((response) => {
+        console.log(response)
+      })
+      .catch(err=>{
+        swal("Error!", 'Cannot update item', "error");
+      })
+    },
     checkout({commit}){
-      axios({
+      return axios({
         url: url + '/product/checkout',
         method: 'post',
         headers:{

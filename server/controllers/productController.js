@@ -20,7 +20,6 @@ class ProductController {
         .catch(next)
     }
     static addProductToCart (req, res, next){
-        console.log(req.body.ProductId)
         Order.findOne(
             {where: {
                 [Op.and]:[
@@ -30,18 +29,10 @@ class ProductController {
             }
         })
         .then((order)=>{
-            console.log(order)
             if(order){
-                console.log('update')
-                console.log(order.amount)
-                console.log(order.id)
-
                 return Order.update({amount: order.amount+1},{where: {id : order.id}, returning: true});
             }
             else{
-                console.log('create')
-                console.log(req.UserId);
-                console.log(req.body.ProductId);
                 return Order.create({
                     CustomerId: req.UserId,
                     ProductId: Number(req.body.ProductId),
@@ -55,7 +46,6 @@ class ProductController {
         .catch(next);
     }
     static emptyCart (req, res, next){
-        console.log('aaaa')
         Order.destroy({
             where: {CustomerId : req.UserId}
         })
@@ -82,7 +72,6 @@ class ProductController {
         .catch(next)
     }
     static checkout (req, res, next){
-        console.log('dwwdedewd')
         let customer = null;
         let totalPrice = 0;
         let orderz = null;
