@@ -15,8 +15,15 @@
     components: {
       Navbar
     },
-    data(){
-      return{};
+    created(){
+      this.checkLogin();
+    },
+    methods: {
+      checkLogin: function(){
+        if(localStorage.getItem('access_token') != null && localStorage.getItem('access_token') != '' && localStorage.getItem('access_token') && 'undefined'){
+          this.$store.commit('SET_ISLOGGEDIN', true);
+        }
+      }
     }
   }
 </script>

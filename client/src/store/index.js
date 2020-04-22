@@ -29,21 +29,40 @@ export default new Vuex.Store({
         }
       })
       .then(response=>{
-        console.log(response)
-        console.log('logged in')
         commit('SET_ISLOGGEDIN', true);
         localStorage.setItem('access_token', response.data.access_token);
         swal("Welcome!", "You are logged in!", "success");
       })
       .catch(err =>{
-        console.log(err.response.status)
         if(err.response.status == 400){
-          swal("Error!", 'Incorrect Email/Password', "success");
+          swal("Error!", 'Incorrect Email/Password', "error");
         }
         else{
-          swal("Error!", err.message, "success");
+          swal("Error!", err.message, "error");
         }
-        console.log(err);
+      })
+    },
+    register({ commit }, payload){
+      return axios({
+        url: url + '/register',
+        method: 'post',
+        data: {
+          email: payload.email,
+          username: payload.username,
+          password: payload.password
+        }
+      })
+      .then(response=>{
+        console.log(response)
+        swal("Success!", "You can now log in!", "success");
+      })
+      .catch(err =>{
+        if(err.response.status == 400){
+          swal("Error!", 'Incorrect Email/Password', "error");
+        }
+        else{
+          swal("Error!", err.message, "error");
+        }
       })
     },
     getProducts({ commit }){

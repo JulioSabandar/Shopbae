@@ -22,19 +22,14 @@
             </div>
             <div v-if="!isLoggedIn" class="signlog">
                 <b-navbar-item tag="div">
-                    <div class="buttons">
-                        <SignupButton>
-                        </SignupButton>
-                    </div>
+                    <SignupButton>
+                    </SignupButton>
                 </b-navbar-item>
                 <b-navbar-item tag="div">
-                    <div class="buttons">
-                        <LoginButton>
-                        </LoginButton>
-                    </div>
+                    <LoginButton>
+                    </LoginButton>
                 </b-navbar-item>
             </div>
-            
         </template>
     </b-navbar>
 </template>

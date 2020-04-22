@@ -22,7 +22,7 @@
         },
         data() {
             return {
-                isComponentModalActive: false,
+                isComponentModalActive: false
             }
         }
     }

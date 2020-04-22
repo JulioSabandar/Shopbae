@@ -28,7 +28,7 @@
             </section>
             <footer class="modal-card-foot">
                 <button class="button" type="button" @click="$parent.close()">Close</button>
-                <button type="submit" class="button is-primary">Login</button>
+                <button type="submit" class="button is-success">Login</button>
             </footer>
         </div>
     </form>
