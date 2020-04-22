@@ -9,7 +9,7 @@
                  trap-focus
                  aria-role="dialog"
                  aria-modal>
-            <LoginForm v-bind="formProps"></LoginForm>
+            <LoginForm></LoginForm>
         </b-modal>
     </section>
 </template>
@@ -23,10 +23,6 @@
         data() {
             return {
                 isComponentModalActive: false,
-                formProps: {
-                    email: '',
-                    password: ''
-                }
             }
         }
     }

@@ -26,9 +26,7 @@ class UserController {
 				throw new Error('Incorrect Email/Password');
 			}
 		})
-        .catch(err=>{
-            console.log(err);
-        });
+        .catch(next);
     }
     static register(req, res, next){
         console.log('masukkk')

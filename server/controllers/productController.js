@@ -62,9 +62,7 @@ class ProductController {
             console.log(a)
             res.status(200).json({message: 'Your cart is empty'})
         })
-        .catch(err=>{
-            console.log(err); 
-        })
+        .catch(next);
     }
     static updateProductInCart(req, res, next){
         let id = req.params.id;
@@ -143,9 +141,7 @@ class ProductController {
             console.log('orders have been removed');
             res.status(200).json({message: 'Checkout Success'});
         })
-        .catch(err =>{
-            console.log(err);
-        });
+       .catch(next);
     }
 }
 module.exports = ProductController;
