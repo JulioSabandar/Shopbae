@@ -8,6 +8,7 @@ function authentication(req, res, next){
         }else{
             const decoded = jwt.verify(access_token, process.env.JWT_SECRETKEY);
             req.UserId = decoded.userId;
+            console.log(req.UserId);
             req.Email = decoded.email;
             req.Username = decoded.username;
             next();

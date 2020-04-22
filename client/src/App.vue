@@ -22,7 +22,11 @@
       checkLogin: function(){
         if(localStorage.getItem('access_token') != null && localStorage.getItem('access_token') != '' && localStorage.getItem('access_token') && 'undefined'){
           this.$store.commit('SET_ISLOGGEDIN', true);
+          this.getUserData();
         }
+      },
+      getUserData: function(){
+        return this.$store.dispatch('getUserData');
       }
     }
   }

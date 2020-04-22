@@ -3,27 +3,27 @@
         <table class="table table-dark">
             <thead>
                 <tr>
-                    <th align="center" scope="col">Name</th>
-                    <th align="center" scope="col">Picture</th>
+                    <th align="center" scope="col">Item</th>
+                    <th align="center" scope="col">Image</th>
                     <th align="center" scope="col">Quantity</th>
                     <th align="center" scope="col">Price</th>
                     <th align="center" scope="col"> Total Price</th>
                     <th align="center" scope="col"> Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody v-if="cart.length > 0">
                 <tr v-for="product in cart" >
                     <td valign="middle" align="center">{{product.Product.name}}</td>
                     <td align="center">
                         <img :src="product.Product.image_url" alt="" border=3 >
                     </td>
                     <td align="center">{{product.amount}}</td>
-                    <td align="center">{{product.Product.price}}</td>
+                    <td align="center">{{product.Product.price}} USD</td>
                     <td align="center">{{product.amount * product.Product.price}}</td>
                     <td align="center">
                         <div class="buttonContainer">
-                            <b-button class="actionButton" type="is-info">Update</b-button>
-                            <b-button class="actionButton" type="is-danger">Remove</b-button>
+                            <b-button v-on:click="" class="b-button" type="is-success">Update</b-button>
+                            <b-button v-on:click="removeItem(product)" class="b-button" type="is-danger">Remove</b-button>
                         </div>
                     </td>
 
@@ -35,11 +35,18 @@
                     <td>
              
                     <td align="center">{{totalPrice}}</td>
-                    <td align="center"> <b-button type="is-success">Checkout</b-button> </td>
+                    <td align="center"> 
+                        <div class="buttonContainer">
+                            <b-button v-on:click="checkout" class="b-button" type="is-success">Checkout</b-button>
+                            <b-button v-on:click="removeAll" class="b-button" type="is-danger">Remove All</b-button>
+                        </div>           
+                    </td>
                 </tr>
             </tbody>
         </table>
-
+        <div class="emptyCart" v-if="cart.length == 0">
+            <h1> Your cart is empty </h1>
+        </div>
     </div>
 </template>
 
@@ -80,9 +87,52 @@
                 })
                 .then(response=>{
                     console.log(response);
+                    this.loadCart()
                     this.$router.push('/cart');
                 })
-                .catch(console.log)
+                .catch(console.log);
+            },
+            removeAll: function(){
+                swal({
+                    title: "Are you sure?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if(willDelete) {
+                        return this.$store.dispatch('removeAll')
+                    }
+                })
+                .then(response=>{
+                    console.log(response);
+                    this.loadCart()
+                    this.$router.push('/cart');
+                })
+                .catch(console.log);
+            },
+            checkout: function(){
+                swal({
+                    title: "Are you sure?",
+                    icon: "info",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willCheckout) => {
+                    if(willCheckout) {
+                        return this.$store.dispatch('checkout')
+                    }
+                })
+                .then(response=>{
+                    console.log(response);
+                    return this.$store.dispatch('getUserData')
+                })
+                .then(response=>{
+                    console.log(response);
+                    this.loadCart();
+                    this.$router.push('/');
+                })
+                .catch(console.log);
             }
         }
     }
@@ -104,6 +154,9 @@
     }
     td, th {
         vertical-align: middle;
+    }
+    .b-button {
+        width: 100px;
     }
 
 

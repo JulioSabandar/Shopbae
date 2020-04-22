@@ -18,7 +18,7 @@ class UserController {
                         email : customer.email,
                         username : customer.username
 					}, process.env.JWT_SECRETKEY);
-					res.status(200).json({access_token});
+					res.status(200).json({access_token, customer});
 				}else{
                     throw new Error('Incorrect Email/Password');
 				}
@@ -29,7 +29,6 @@ class UserController {
         .catch(next);
     }
     static register(req, res, next){
-        console.log('masukkk')
         Customer.create({
             email : req.body.email,
             username: req.body.username,
@@ -37,6 +36,15 @@ class UserController {
         })
         .then( user => {
             res.status(201).json({user});
+        })
+        .catch(next);
+    }
+    static getUser (req, res, next){
+        console.log('aaaaadc')
+        console.log(req.UserId);
+        Customer.findByPk(req.UserId)
+        .then(customer=>{
+            res.status(200).json({customer});
         })
         .catch(next);
     }

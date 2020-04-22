@@ -4,5 +4,6 @@ const authentication = require('../middleware/authentication');
 const Controller = require('../controllers/userController');
 userRouter.post('/login', Controller.login);
 userRouter.post('/register', Controller.register);
+userRouter.get('/user', authentication, Controller.getUser);
 userRouter.post('/topUp', authentication, Controller.topUp);
 module.exports = userRouter;

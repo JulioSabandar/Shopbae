@@ -6,12 +6,16 @@ Vue.use(Vuex);
 const url = 'http://localhost:5000'
 export default new Vuex.Store({
   state: {
+    user: null,
     isLoggedIn: false,
     products: [],
-    cart: null,
+    cart: [],
     totalPrice: null
   },
   mutations: {
+    SET_USER(state, payload){
+      state.user = payload;
+    },
     SET_ISLOGGEDIN(state, payload){
       state.isLoggedIn = payload;
     },
@@ -26,6 +30,22 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    getUserData({commit}, payload){
+      return axios({
+        url: url + '/user',
+        method: 'get',
+        headers:{
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+      .then(response=>{
+        commit('SET_USER', response.data.customer);
+      })
+      .catch(err=>{
+        console.log(err);
+      })
+
+    },
     login({ commit }, payload){
       return axios({
         url: url + '/login',
@@ -38,6 +58,7 @@ export default new Vuex.Store({
       .then(response=>{
         commit('SET_ISLOGGEDIN', true);
         localStorage.setItem('access_token', response.data.access_token);
+        localStorage.setItem('username', response.data.customer.username);
         swal("Welcome!", "You are logged in!", "success");
       })
       .catch(err =>{
@@ -126,7 +147,7 @@ export default new Vuex.Store({
     },
     removeItem({commit}, payload){
       axios({
-        url: url + '/product/cart/' + payload.ProductId,
+        url: url + '/product/cart/' + payload.id,
         method: 'delete',
         headers:{
           access_token: localStorage.getItem('access_token')
@@ -139,6 +160,40 @@ export default new Vuex.Store({
       })
       .catch(err=>{
         swal("Error!", 'Cannot remove item', "error");
+      })
+    },
+    removeAll({commit}){
+      axios({
+        url: url + '/product/cart',
+        method: 'delete',
+        headers:{
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+      .then(() => {
+        swal(`All Items Removed!`, {
+          icon: "success",
+        });
+      })
+      .catch(err=>{
+        swal("Error!", 'Cannot remove item(s)', "error");
+      })
+    },
+    checkout({commit}){
+      axios({
+        url: url + '/product/checkout',
+        method: 'post',
+        headers:{
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+      .then(() => {
+        swal(`Your purchase has been processed!`, {
+          icon: "success",
+        });
+      })
+      .catch(err=>{
+        swal("Error!", 'Cannot remove item(s)', "error");
       })
     }
   },
