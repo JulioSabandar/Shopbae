@@ -2,7 +2,7 @@
     <form action="">
         <div class="modal-card" style="width: auto">
             <header class="modal-card-head">
-                <p class="modal-card-title">Log in</p>
+                <p class="modal-card-title">Sign up</p>
             </header>
             <section class="modal-card-body">
                 <b-field label="Email">
@@ -10,6 +10,16 @@
                         type="email"
                         :value="email"
                         placeholder="Your email"
+                        required>
+                    </b-input>
+                </b-field>
+
+                <b-field label="Username">
+                    <b-input
+                        type="username"
+                        :value="username"
+                        password-reveal
+                        placeholder="Your username"
                         required>
                     </b-input>
                 </b-field>
@@ -36,6 +46,6 @@
 <script>
     export default {
         name: 'LoginForm',   
-        props: ['email', 'password'] 
+        props: ['email', 'username', 'password'] 
     }
 </script>

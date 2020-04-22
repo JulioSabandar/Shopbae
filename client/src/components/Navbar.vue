@@ -18,9 +18,13 @@
             <b-navbar-item tag="div">
                 <div class="buttons">
 
-                    <a class="button is-primary">
-                        <strong>Sign up</strong>
-                    </a>
+                    <SignupButton>
+                    </SignupButton>
+                </div>
+            </b-navbar-item>
+            <b-navbar-item tag="div">
+                <div class="buttons">
+
                     <LoginButton>
                     </LoginButton>
                 </div>
@@ -32,10 +36,12 @@
 
 <script>
     import LoginButton from './LoginButton.vue';
+    import SignupButton from './SignupButton.vue';
     export default {
         name: 'Navbar',   
         components: {
-            LoginButton
+            LoginButton,
+            SignupButton
         }     
     }
 </script>
