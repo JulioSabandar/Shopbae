@@ -1,5 +1,14 @@
 <template>
     <div>
+
+        <div class="credit_dashboard">
+            <hr>
+            <h1>
+                Your Credits: {{user.credit}} USD
+            </h1>
+            <hr>
+
+        </div>
         <table class="table table-dark">
             <thead>
                 <tr>
@@ -71,14 +80,21 @@
             },
             totalPrice(){
                 return this.$store.state.totalPrice;
-            }
+            },
+            user(){
+                return this.$store.state.user;
+            },
         },
         created(){
             this.loadCart();
+            this.updateUser();
         },
         methods: {
             loadCart: function(){
                 this.$store.dispatch('getCart');
+            },
+            updateUser: function(){
+                this.$store.dispatch('getUserData');
             },
             removeItem: function(product){
                 swal({
