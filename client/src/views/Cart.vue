@@ -1,90 +1,110 @@
 <template>
-    <section>
-        
+    <div>
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th align="center" scope="col">Name</th>
+                    <th align="center" scope="col">Picture</th>
+                    <th align="center" scope="col">Quantity</th>
+                    <th align="center" scope="col">Price</th>
+                    <th align="center" scope="col"> Total Price</th>
+                    <th align="center" scope="col"> Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="product in cart" >
+                    <td valign="middle" align="center">{{product.Product.name}}</td>
+                    <td align="center">
+                        <img :src="product.Product.image_url" alt="" border=3 >
+                    </td>
+                    <td align="center">{{product.amount}}</td>
+                    <td align="center">{{product.Product.price}}</td>
+                    <td align="center">{{product.amount * product.Product.price}}</td>
+                    <td align="center">
+                        <div class="buttonContainer">
+                            <b-button class="actionButton" type="is-info">Update</b-button>
+                            <b-button class="actionButton" type="is-danger">Remove</b-button>
+                        </div>
+                    </td>
 
-        <b-table
-            :data="isEmpty ? [] : data"
-            :bordered="isBordered"
-            :striped="isStriped"
-            :narrowed="isNarrowed"
-            :hoverable="isHoverable"
-            :loading="isLoading"
-            :focusable="isFocusable"
-            :mobile-cards="hasMobileCards">
+                </tr>
+                <tr>
+                    <th align="center">All</th>
+                    <td>
+                    <td>
+                    <td>
+             
+                    <td align="center">{{totalPrice}}</td>
+                    <td align="center"> <b-button type="is-success">Checkout</b-button> </td>
+                </tr>
+            </tbody>
+        </table>
 
-            <template slot-scope="props">
-                <b-table-column field="id" label="ID" width="40" numeric>
-                    {{ props.row.id }}
-                </b-table-column>
-
-                <b-table-column field="first_name" label="First Name">
-                    {{ props.row.first_name }}
-                </b-table-column>
-
-                <b-table-column field="last_name" label="Last Name">
-                    {{ props.row.last_name }}
-                </b-table-column>
-
-                <b-table-column field="date" label="Date" centered>
-                    <span class="tag is-success">
-                        {{ new Date(props.row.date).toLocaleDateString() }}
-                    </span>
-                </b-table-column>
-
-                <b-table-column label="Gender">
-                    <span>
-                        <b-icon pack="fas"
-                            :icon="props.row.gender === 'Male' ? 'mars' : 'venus'">
-                        </b-icon>
-                        {{ props.row.gender }}
-                    </span>
-                </b-table-column>
-            </template>
-
-            <template slot="empty">
-                <section class="section">
-                    <div class="content has-text-grey has-text-centered">
-                        <p>
-                            <b-icon
-                                icon="emoticon-sad"
-                                size="is-large">
-                            </b-icon>
-                        </p>
-                        <p>Nothing here.</p>
-                    </div>
-                </section>
-            </template>
-        </b-table>
-    </section>
+    </div>
 </template>
 
 <script>
     export default {
         name: 'Cart',
         data() {
-            const data = [
-                { 'id': 1, 'first_name': 'Jesse', 'last_name': 'Simmons', 'date': '2016/10/15 13:43:27', 'gender': 'Male' },
-                { 'id': 2, 'first_name': 'John', 'last_name': 'Jacobs', 'date': '2016/12/15 06:00:53', 'gender': 'Male' },
-                { 'id': 3, 'first_name': 'Tina', 'last_name': 'Gilbert', 'date': '2016/04/26 06:26:28', 'gender': 'Female' },
-                { 'id': 4, 'first_name': 'Clarence', 'last_name': 'Flores', 'date': '2016/04/10 10:28:46', 'gender': 'Male' },
-                { 'id': 5, 'first_name': 'Anne', 'last_name': 'Lee', 'date': '2016/12/06 14:38:38', 'gender': 'Female' }
-            ]
-
             return {
-                data,
-                isEmpty: false,
-                isBordered: false,
-                isStriped: true,
-                isNarrowed: false,
-                isHoverable: true,
-                isFocusable: false,
-                isLoading: false,
-                hasMobileCards: false
+
+            }
+        },
+        computed: {
+            cart(){
+                return this.$store.state.cart;
+            },
+            totalPrice(){
+                return this.$store.state.totalPrice;
+            }
+        },
+        created(){
+            this.loadCart();
+        },
+        methods: {
+            loadCart: function(){
+                this.$store.dispatch('getCart');
+            },
+            removeItem: function(product){
+                swal({
+                    title: "Are you sure?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if(willDelete) {
+                        return this.$store.dispatch('removeItem', product)
+                    }
+                })
+                .then(response=>{
+                    console.log(response);
+                    this.$router.push('/cart');
+                })
+                .catch(console.log)
             }
         }
     }
 </script>
 
 <style scoped>
+    img {
+        max-height: 150px;
+    }
+    .buttonContainer {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    table {
+        text-align: center;
+        width: 75%;
+        margin: auto
+    }
+    td, th {
+        vertical-align: middle;
+    }
+
 
 </style>

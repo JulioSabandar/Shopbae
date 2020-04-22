@@ -8,15 +8,21 @@ export default new Vuex.Store({
   state: {
     isLoggedIn: false,
     products: [],
-    cart: null
+    cart: null,
+    totalPrice: null
   },
   mutations: {
     SET_ISLOGGEDIN(state, payload){
       state.isLoggedIn = payload;
-      console.log(state.isLoggedIn);
     },
     SET_PRODUCTS(state, payload){
       state.products = payload;
+    },
+    SET_CART(state, payload){
+      state.cart = payload;
+    },
+    SET_TOTALPRICE(state, payload){
+      state.totalPrice = payload;
     }
   },
   actions: {
@@ -95,6 +101,44 @@ export default new Vuex.Store({
       })
       .catch(err=>{
         swal("Error!", err.message, "error");
+      })
+    },
+    getCart({ commit }){
+      axios({
+        url: url + '/product/cart',
+        method: 'get',
+        headers:{
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+      .then(response=>{
+        let totalPrice = 0;
+        let orders = response.data.orders;
+        for(let i=0; i<orders.length; i++){
+          totalPrice += (orders[i].amount * orders[i].Product.price)
+        }
+        commit('SET_CART', orders);
+        commit('SET_TOTALPRICE', totalPrice);
+      })
+      .catch(err=>{
+        swal("Error!", err.message, "error");
+      })
+    },
+    removeItem({commit}, payload){
+      axios({
+        url: url + '/product/cart/' + payload.ProductId,
+        method: 'delete',
+        headers:{
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+      .then(() => {
+        swal(` ${payload.Product.name} removed from cart!`, {
+          icon: "success",
+        });
+      })
+      .catch(err=>{
+        swal("Error!", 'Cannot remove item', "error");
       })
     }
   },
