@@ -3,11 +3,14 @@
 
         <div class="credit_dashboard">
             <hr>
-            <h1>
-                Your Credits: {{user.credit}} USD
-            </h1>
-            <hr>
+                <h1>
+                    Your Credits: {{user.credit}} USD
+                </h1>
+                <br>
+                <topupButton @topup="topup">
+                </topupButton>
 
+            <hr>
         </div>
         <table class="table table-dark">
             <thead>
@@ -64,6 +67,7 @@
 
 <script>
     import updateButton from '../components/updateButton.vue';
+    import topupButton from '../components/topupButton.vue';
     export default {
         name: 'Cart',
         data() {
@@ -72,7 +76,8 @@
             }
         },
         components: {
-            updateButton
+            updateButton,
+            topupButton
         },
         computed: {
             cart(){
@@ -95,6 +100,9 @@
             },
             updateUser: function(){
                 this.$store.dispatch('getUserData');
+            },
+            topup: function(payload){
+                this.updateUser();
             },
             removeItem: function(product){
                 swal({

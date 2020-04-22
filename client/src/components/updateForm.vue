@@ -7,7 +7,7 @@
             <section class="modal-card-body">
                 <b-field label="Quantity">
                     <b-input
-                        type="username"
+                        type="number"
                         :value="product.amount"
                         v-model="amount"
                         required>
