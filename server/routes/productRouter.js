@@ -1,0 +1,14 @@
+const { Router } = require('express');
+const Controller = require('../controllers/productController');
+const authentication = require('../middleware/authentication');
+const authorization = require('../middleware/authorization');
+const productRouter = Router();
+productRouter.use(authentication);
+productRouter.get('/', Controller.showProducts);
+productRouter.get('/cart', Controller.showCart);
+productRouter.post('/cart', Controller.addProductToCart);
+productRouter.delete('/cart', Controller.emptyCart);
+productRouter.put('/cart/:id', authorization, Controller.updateProductInCart);
+productRouter.delete('/cart/:id', authorization, Controller.removeProductFromCart);
+productRouter.post('/checkout', Controller.checkout);
+module.exports = productRouter;
