@@ -3,7 +3,7 @@ Shopbae is an Ecommerce website developed by Julio Sabandar
 
 Links:
 * Client : https://shopbaee.web.app
-* Server : hhttps://shopbaee.herokuapp.com
+* Server : https://shopbaee.herokuapp.com
 
 ## RESTful endpoints
 
