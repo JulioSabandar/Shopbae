@@ -63,12 +63,15 @@
         <div class="emptyCart" v-if="cart.length == 0">
             <h1> Your cart is empty </h1>
         </div>
+        <Footer/>
     </div>
 </template>
 
 <script>
     import updateButton from '../components/updateButton.vue';
     import topupButton from '../components/topupButton.vue';
+    import Footer from '@/components/Footer.vue';
+
     export default {
         name: 'Cart',
         data() {
@@ -78,7 +81,8 @@
         },
         components: {
             updateButton,
-            topupButton
+            topupButton,
+            Footer
         },
         computed: {
             cart(){

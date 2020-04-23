@@ -1,5 +1,8 @@
 <template>
   <div class="home">
+    <Carousel>
+    </Carousel>
+    <br>
     <div class="container">
       <div class="card" v-for="product in products">
         <div class="card-image">
@@ -17,15 +20,25 @@
         </div>
       </div>
     </div>
+    <br>
+    <Footer/>
+    
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue';
+import Carousel from '@/components/Carousel.vue';
+import Footer from '@/components/Footer.vue';
+
 
 export default {
   name: 'Home',
+  components: {
+    Carousel,
+    Footer
+  },
   created(){
     this.loadProducts();
   },
