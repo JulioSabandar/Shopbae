@@ -20,10 +20,14 @@
         <template slot="end">
             <div v-if="isLoggedIn" class="signlog">
                 <b-navbar-item tag="div">
+                    <h1> <b> {{user.email}} </b> </h1>
+                </b-navbar-item>
 
-                <button class="button is-danger" v-on:click.stop="signout">
-                    Log out
-                </button>
+
+                <b-navbar-item tag="div">
+                    <button class="button is-danger" v-on:click.stop="signout">
+                        Log out
+                    </button>
                 </b-navbar-item>
 
             </div>
@@ -53,7 +57,10 @@
         },
         computed: {
             isLoggedIn(){
-            return this.$store.state.isLoggedIn;
+                return this.$store.state.isLoggedIn;
+            },
+            user(){
+                return this.$store.state.user;
             },
         },
         methods: {
