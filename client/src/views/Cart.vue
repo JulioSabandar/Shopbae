@@ -90,6 +90,9 @@
             cart(){
                 return this.$store.state.cart;
             },
+            isLoggedIn(){
+                return this.$store.state.isLoggedIn;
+            },
             totalPrice(){
                 return this.$store.state.totalPrice;
             },
@@ -98,11 +101,19 @@
             },
         },
         created(){
-            this.loadCart();
-            this.updateUser();
-            this.credits = this.user.credit
+            this.checkLogin();
+            
         },
         methods: {
+            checkLogin: function(){
+                if(!localStorage.getItem('access_token')){
+                    this.$router.push('/');
+                }else{
+                    this.loadCart();
+                    this.updateUser();
+                    this.credits = this.user.credit
+                }
+            },
             loadCart: function(){
                 this.$store.dispatch('getCart');
             },
