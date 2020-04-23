@@ -1,67 +1,69 @@
 <template>
     <div>
+        <div class="page">
+            <div class="credit_dashboard">
+                <hr>
+                    <h1>
+                        Your Credits: {{user.credit}} USD
+                    </h1>
+                    <br>
+                    <topupButton 
+                    @topupz="topupz()">
+                    </topupButton>
 
-        <div class="credit_dashboard">
-            <hr>
-                <h1>
-                    Your Credits: {{user.credit}} USD
-                </h1>
-                <br>
-                <topupButton 
-                @topupz="topupz()">
-                </topupButton>
+                <hr>
+            </div>
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th align="center" scope="col">Item</th>
+                        <th align="center" scope="col">Image</th>
+                        <th align="center" scope="col">Quantity</th>
+                        <th align="center" scope="col">Price</th>
+                        <th align="center" scope="col"> Total Price</th>
+                        <th align="center" scope="col"> Actions</th>
+                    </tr>
+                </thead>
+                <tbody v-if="cart.length > 0">
+                    <tr v-for="product in cart" >
+                        <td valign="middle" align="center">{{product.Product.name}}</td>
+                        <td align="center">
+                            <img :src="product.Product.image_url" alt="" border=3 >
+                        </td>
+                        <td align="center">{{product.amount}}</td>
+                        <td align="center">{{product.Product.price}} USD</td>
+                        <td align="center">{{product.amount * product.Product.price}}</td>
+                        <td align="center">
+                            <div class="buttonContainer">
+                                <updateButton 
+                                :product="product"
+                                @updateCart="updateCart"> 
+                                </updateButton>
+                                <b-button v-on:click="removeItem(product)" class="b-button" type="is-danger">Remove</b-button>
+                            </div>
+                        </td>
 
-            <hr>
-        </div>
-        <table class="table table-dark">
-            <thead>
-                <tr>
-                    <th align="center" scope="col">Item</th>
-                    <th align="center" scope="col">Image</th>
-                    <th align="center" scope="col">Quantity</th>
-                    <th align="center" scope="col">Price</th>
-                    <th align="center" scope="col"> Total Price</th>
-                    <th align="center" scope="col"> Actions</th>
-                </tr>
-            </thead>
-            <tbody v-if="cart.length > 0">
-                <tr v-for="product in cart" >
-                    <td valign="middle" align="center">{{product.Product.name}}</td>
-                    <td align="center">
-                        <img :src="product.Product.image_url" alt="" border=3 >
-                    </td>
-                    <td align="center">{{product.amount}}</td>
-                    <td align="center">{{product.Product.price}} USD</td>
-                    <td align="center">{{product.amount * product.Product.price}}</td>
-                    <td align="center">
-                        <div class="buttonContainer">
-                            <updateButton 
-                            :product="product"
-                            @updateCart="updateCart"> 
-                            </updateButton>
-                            <b-button v-on:click="removeItem(product)" class="b-button" type="is-danger">Remove</b-button>
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <th align="center">All</th>
-                    <td>
-                    <td>
-                    <td>
-             
-                    <td align="center">{{totalPrice}}</td>
-                    <td align="center"> 
-                        <div class="buttonContainer">
-                            <b-button v-on:click="checkout" class="b-button" type="is-success">Checkout</b-button>
-                            <b-button v-on:click="removeAll" class="b-button" type="is-danger">Remove All</b-button>
-                        </div>           
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="emptyCart" v-if="cart.length == 0">
-            <h1> Your cart is empty </h1>
+                    </tr>
+                        
+                    <tr>
+                        <th align="center">All</th>
+                        <td>
+                        <td>
+                        <td>
+                
+                        <td align="center">{{totalPrice}}</td>
+                        <td align="center"> 
+                            <div class="buttonContainer">
+                                <b-button v-on:click="checkout" class="b-button" type="is-success">Checkout</b-button>
+                                <b-button v-on:click="removeAll" class="b-button" type="is-danger">Remove All</b-button>
+                            </div>           
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="emptyCart" v-if="cart.length == 0">
+                <h1> Your cart is empty </h1>
+            </div>
         </div>
         <Footer/>
     </div>
@@ -184,6 +186,9 @@
 </script>
 
 <style scoped>
+    .page {
+        min-height: 100vh;
+    }
     img {
         max-height: 150px;
     }

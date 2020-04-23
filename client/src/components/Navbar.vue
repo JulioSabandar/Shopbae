@@ -2,7 +2,10 @@
     <b-navbar>
         <template slot="brand">
             <b-navbar-item tag="router-link" :to="{ path: '/' }">
-                <h1 class="logo"> Shopbae </h1>
+                <img
+                    src="/assets/logo.png"
+                    alt="Lightweight UI components for Vue.js based on Bulma"
+                >
             </b-navbar-item>
         </template>
         <template slot="start">
@@ -64,9 +67,6 @@
 </script>
 
 <style scoped>
-    .logo{
-       font-size: 200%;
-    }
     .signlog{
         display: flex
     }
