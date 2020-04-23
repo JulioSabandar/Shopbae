@@ -28,7 +28,7 @@
                     <tr v-for="product in cart" >
                         <td valign="middle" align="center">{{product.Product.name}}</td>
                         <td align="center">
-                            <img :src="product.Product.image_url" alt="" border=3 >
+                            <img :src="product.Product.image_url" alt="" border=1 >
                         </td>
                         <td align="center">{{product.amount}}</td>
                         <td align="center">{{product.Product.price}} USD</td>

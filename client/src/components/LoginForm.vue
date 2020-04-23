@@ -50,6 +50,7 @@
                 }
                 this.$store.dispatch("login", loginInput)
                 .then(result=>{
+                    this.$store.commit('SET_ISLOGGEDIN', true);
                     console.log('aaaaaaa');
                     this.$router.push('/');
                 })

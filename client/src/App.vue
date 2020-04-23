@@ -15,7 +15,7 @@
     components: {
       Navbar
     },
-    created(){
+    mounted(){
       this.checkLogin();
     },
     methods: {

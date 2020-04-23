@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-const url = 'http://localhost:5000'
+const url = 'https://shopbaee.herokuapp.com'
 export default new Vuex.Store({
   state: {
     user: null,
@@ -56,9 +56,11 @@ export default new Vuex.Store({
       })
       .then(response=>{
         commit('SET_ISLOGGEDIN', true);
+        commit('SET_USER', response.data.customer);
         localStorage.setItem('access_token', response.data.access_token);
         localStorage.setItem('username', response.data.customer.username);
         swal("Welcome!", "You are logged in!", "success");
+        return response;
       })
       .catch(err =>{
         if(err.response.status == 400){

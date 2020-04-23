@@ -20,9 +20,8 @@
         <template slot="end">
             <div v-if="isLoggedIn" class="signlog">
                 <b-navbar-item tag="div">
-                    <h1> <b> {{user.email}} </b> </h1>
+                    <h1> <b> {{user ? user.email : ''}} </b> </h1>
                 </b-navbar-item>
-
 
                 <b-navbar-item tag="div">
                     <button class="button is-danger" v-on:click.stop="signout">
@@ -63,7 +62,15 @@
                 return this.$store.state.user;
             },
         },
+        created(){
+            this.checkLogin();
+        },
         methods: {
+            checkLogin: function(){
+                if(localStorage.getItem('access_token') != null && localStorage.getItem('access_token') != '' && localStorage.getItem('access_token') && 'undefined'){
+                    this.$store.commit('SET_ISLOGGEDIN', true);
+                }
+            },
             signout: function(){
                 localStorage.clear();
                 this.$store.commit('SET_ISLOGGEDIN', false);
